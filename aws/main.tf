@@ -13,7 +13,7 @@ provider "aws" {
   region = "ap-southeast-1"
 }
 
-# Create a Security Group
+# Create a AWS Security Group
 resource "aws_security_group" "sg_http" {
   name = "sg_http"
   ingress {
@@ -24,7 +24,7 @@ resource "aws_security_group" "sg_http" {
   }
 }
 
-# Create an EC2 instance
+# Create an AWS EC2 instance
 resource "aws_instance" "app_server" {
   tags                   = { Name : "app_server" }
   ami                    = "ami-042f884c037e74d76"
@@ -37,7 +37,7 @@ resource "aws_instance" "app_server" {
               EOF
 }
 
-# Create a Security Group
+# Create a AWS Security Group
 resource "aws_security_group" "sg_database" {
   name = "sg_database"
   ingress {
@@ -48,7 +48,7 @@ resource "aws_security_group" "sg_database" {
   }
 }
 
-# Create a RDS instance
+# Create a AWS RDS instance
 resource "aws_db_instance" "db_server" {
   identifier             = "db-server"
   name                   = "pg_master"
