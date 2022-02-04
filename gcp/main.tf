@@ -16,6 +16,20 @@ provider "google" {
   zone        = "asia-southeast1-a"
 }
 
+# Configure default network firewall
+resource "google_compute_firewall" "default" {
+  name    = "default-allow-http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["http"]
+}
+
 # Create a Google Compute Engine instance
 resource "google_compute_instance" "app_server" {
   name         = "app-server"
@@ -31,8 +45,10 @@ resource "google_compute_instance" "app_server" {
     }
   }
   metadata_startup_script = file("./startup.sh")
+  tags = ["http", "dev"]
 }
 
+# Cryptographic random number generator
 resource "random_id" "db_name_suffix" {
   byte_length = 4
 }

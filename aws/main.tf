@@ -17,8 +17,8 @@ provider "aws" {
 resource "aws_security_group" "sg_http" {
   name = "sg_http"
   ingress {
-    from_port   = "8080"
-    to_port     = "8080"
+    from_port   = "80"
+    to_port     = "80"
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -33,7 +33,7 @@ resource "aws_instance" "app_server" {
   user_data              = <<-EOF
               #!/bin/bash
               echo "Hello, World" > index.html
-              nohup busybox httpd -f -p 8080 &
+              nohup busybox httpd -f -p 80 &
               EOF
 }
 
